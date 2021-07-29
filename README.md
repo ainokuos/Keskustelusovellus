@@ -8,3 +8,4 @@ Toimintoja ovat:
 - Käyttäjä voi lähettää yksityisviestejä
 - Käyttäjä voi hakea viestejä sanalla
 - Käyttäjä voi vastata viesteihin kuvilla
+...
