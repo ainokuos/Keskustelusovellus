@@ -13,6 +13,8 @@ def login(username, password):
     else:
         hash_value = user.password
         if check_password_hash(hash_value, password):
+            session["username"] = username
+            session["user_id"] = user[0]
             return True
         else:
             return False
@@ -31,5 +33,13 @@ def signin(username, password):
         sql = "INSERT INTO users (username, password) VALUES (:username, :password)"
         db.session.execute(sql, {"username":username, "password":hash_value})
         db.session.commit()
+        login(username, password)
         return True
+
+def logout():
+    del session["username"]
+    del session["user_id"]
+
+def user_id():
+    return session["user_id"]
 
