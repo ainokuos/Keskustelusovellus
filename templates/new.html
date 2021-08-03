@@ -12,4 +12,7 @@ Aloitus:<br>
 <textarea name="content" rows="5" cols="40"></textarea>
 <br>
 <input type="submit" value="Lähetä">
+{% if error %}
+Virhe: tyhjä viesti
+{% endif %}
 </form>

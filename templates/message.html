@@ -1,2 +1,18 @@
+<form action="/message/{{ id }}" method="POST">
 {{ content[0] }}
 {{ content[1] }}
+<br>
+{% for reply in replies %}
+{{ reply[0] }}
+<br>
+{% endfor %}
+Vastaa:<br>
+<textarea name="reply" rows="3" cols="40"></textarea>
+<br>
+<input type="submit" value="lähetä">
+<a href="/">Takaisin</a>
+<br>
+{% if errpr %}
+Virhe: tyhjä viesti
+{% endif %}
+</form>

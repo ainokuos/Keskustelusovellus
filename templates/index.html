@@ -6,8 +6,8 @@
 {% else %}
 <a href="/logout">Kirjaudu ulos</a>
 <a href="/new">Aloita uusi</a>
-<h2>Keskustelut</h2>
+<h2>Keskustelut</h2> <a href="/questions">Kyselyt</a>
 {% for topic in topics %}
-<br> {{ topic[1] }} <a href="/message/{{topic[0]}}">{{topic[2]}}</a>
+<br> {{ topic[0] }} {{ topic[1] }} {{topic [2] }} <a href="/message/{{topic[0]}}">vastaa</a> Vastauksia: {{ replies[(topic[0])-1] }}
 {% endfor %}
 {% endif %}
