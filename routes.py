@@ -57,7 +57,7 @@ def new():
         topic = request.form["topic"]
         content = request.form["content"]
         if messages.new(topic, content) == True:
-            return redirect("/")
+            return redirect("/topics")
         else:
             error = True
             return render_template("new.html", error = error)
