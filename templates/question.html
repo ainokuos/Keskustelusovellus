@@ -1,0 +1,9 @@
+<form action="/question/{{ id }}" method="POST">
+{{ question[0] }}
+<br>
+{% for choice in choices %}
+<input type="radio" name="choice" value="{{ choice[0] }}">{{ choice[1] }}
+{% endfor %}
+<input type="submit" value="Vastaa">
+{{ answers }}
+</form>

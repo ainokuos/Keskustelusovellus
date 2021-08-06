@@ -1,12 +1,10 @@
 from app import app
 from flask import render_template, request, redirect
-import users, messages
+import users, messages, queries
 
 @app.route("/")
 def index():
-    topics = messages.get_all()
-    replies = messages.get_sum()
-    return render_template("index.html", topics = topics, replies = replies)
+    return render_template("index.html")
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
@@ -27,7 +25,7 @@ def signin():
     error = False
     if request.method == "GET":
         return render_template("signin.html", error = error)
-    if request.method == "POST":
+    elif request.method == "POST":
         username = request.form["username"]
         password = request.form["password"]
         if users.signin(username, password) == True:
@@ -40,6 +38,14 @@ def signin():
 def logout():
     users.logout()
     return redirect("/")
+
+@app.route("/topics")
+def topics():
+    topics = messages.get_all()
+    replies = messages.get_sum()
+    return render_template("topics.html", topics = topics, replies = replies)
+
+
 
 @app.route("/new", methods=["GET", "POST"])
 def new():
@@ -70,4 +76,28 @@ def message(id):
 
 @app.route("/questions")
 def questions():
-    return render_template("questions.html")
+    polls = queries.get_queries()
+    return render_template("questions.html", polls = polls)
+
+@app.route("/ask", methods=["GET", "POST"])
+def ask():
+    if request.method == "GET":
+        return render_template("ask.html")
+    if request.method == "POST":
+        topic = request.form["topic"]
+        choices = request.form.getlist("choice")
+        queries.new_question(topic, choices)
+        return redirect("/questions")
+
+@app.route("/question/<int:id>", methods=["GET", "POST"])
+def question(id):
+    if request.method == "GET":
+        question = queries.get_question(id)
+        choices = queries.get_choices(id)
+        answers = queries.get_answers(id)
+        return render_template("question.html", id=id, question = question, choices = choices, answers = answers)
+    
+    if request.method == "POST":
+        choice = request.form["choice"]
+        queries.answer(choice)
+        return redirect("/questions")
