@@ -1,1 +1,11 @@
 Kyselyt
+<br>
+<a href="/">Takaisin</a>
+<a href="/ask">Luo uusi kysely</a>
+<br>
+<hr>
+{% for poll in polls %}
+{{ poll[1] }}<a href="/question/{{ poll[0] }}">Mene kyselyyn</a> 
+<br>
+<hr>
+{% endfor %}
