@@ -5,7 +5,9 @@
 <input type="radio" name="choice" value="{{ choice[0] }}">{{ choice[1] }}
 {% endfor %}
 <input type="submit" value="Vastaa">
-{{ answers }}
+{% for answer in answers %}
+{{ answer[0] }} {{ answer[1] }}
+{% endfor %}
 <br>
 <a href="/questions">Takaisin</a>
 </form>
