@@ -4,8 +4,7 @@ Sovelluksella käyttäjä voi keskustella toisten käyttäjien kanssa. Keskustel
 Toimintoja ovat:
 - Käyttäjä voi kirjautua sovellukseen tai luoda uuden tunnuksen
 - Käyttäjä voi luoda ja poistaa keskustelun
-- Käyttäjä voi luod kyselyn
+- Käyttäjä voi luoda kyselyn
 - Käyttäjä voi lähettää yksityisviestejä
 - Käyttäjä voi hakea viestejä sanalla
 - Käyttäjä voi vastata viesteihin kuvilla
-...
