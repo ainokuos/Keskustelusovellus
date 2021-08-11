@@ -1,18 +1,22 @@
 <form action="/message/{{ id }}" method="POST">
-{{ content[0] }}
 {{ content[1] }}
+{{ content[2] }}
 <br>
 {% for reply in replies %}
 {{ reply[0] }}
 <br>
 {% endfor %}
 Vastaa:<br>
-<textarea name="reply" rows="3" cols="40" ></textarea>
+<textarea name="reply" rows="3" cols="40" minlength="1" required ></textarea>
 <br>
-<input type="submit" value="lähetä">
+<input type="submit" value="Lähetä">
 <a href="/topics">Takaisin</a>
 <br>
-{% if errpr %}
-Virhe: tyhjä viesti
-{% endif %}
 </form>
+{% if content[3] == user_id %}
+<form action="/delete/{{ content[0] }}" method="GET">
+<input type="submit" value="Poista">
+</form>
+{% endif %}
+
+

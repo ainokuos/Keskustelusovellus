@@ -4,24 +4,27 @@ import os
 import users
 
 def new_question(topic, choices):
-    sql = "INSERT INTO questions (topic) VALUES (:topic)"
-    db.session.execute(sql, {"topic":topic})
+    user_id = users.user_id()
+    visible = "TRUE"
+    sql = "INSERT INTO questions (topic, user_id, visible) VALUES (:topic, :user_id, :visible)"
+    db.session.execute(sql, {"topic":topic, "user_id":user_id, "visible":visible})
     db.session.commit()
     sql = "SELECT id FROM questions ORDER BY id DESC LIMIT 1"
     result = db.session.execute(sql)
     question_id = result.fetchone()[0]
     for choice in choices:
-        sql = "INSERT INTO choices (question_id, choice) VALUES (:question_id, :choice)"
-        db.session.execute(sql, {"question_id":question_id, "choice":choice})
-        db.session.commit()
+        if choice != "":
+            sql = "INSERT INTO choices (question_id, choice) VALUES (:question_id, :choice)"
+            db.session.execute(sql, {"question_id":question_id, "choice":choice})
+            db.session.commit()
 
 def get_queries():
-    sql = "SELECT id, topic FROM questions ORDER BY id"
+    sql = "SELECT id, topic FROM questions WHERE visible=TRUE ORDER BY id"
     result = db.session.execute(sql)
     return result
 
 def get_question(id):
-    sql = "SELECT topic FROM questions WHERE id =:id"
+    sql = "SELECT topic, user_id FROM questions WHERE id =:id"
     result = db.session.execute(sql, {"id":id}).fetchone()
     return result
 
@@ -40,4 +43,9 @@ def get_answers(question_id):
     sql = "SELECT C.choice, count(A.choice_id) FROM answers A, choices C WHERE A.choice_id = C.id AND C.question_id =:question_id GROUP BY C.id, C.choice"
     result = db.session.execute(sql, {"question_id":question_id}).fetchall()
     return result
+
+def delete(id):
+    sql = "UPDATE questions SET visible=FALSE WHERE id=:id"
+    db.session.execute(sql, {"id":id})
+    db.session.commit()
         

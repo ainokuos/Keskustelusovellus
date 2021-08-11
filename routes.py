@@ -66,9 +66,10 @@ def new():
 @app.route("/message/<int:id>", methods=["GET", "POST"])
 def message(id):
     content = messages.get_message(id)
+    user_id = users.user_id()
     if request.method == "GET":
         replies = messages.get_replies(id)
-        return render_template("message.html", id = id, content = content, replies = replies)
+        return render_template("message.html", id = id, content = content, replies = replies, user_id = user_id)
     if request.method == "POST":
         reply = request.form["reply"]
         messages.reply(reply, id)
@@ -92,12 +93,23 @@ def ask():
 @app.route("/question/<int:id>", methods=["GET", "POST"])
 def question(id):
     if request.method == "GET":
+        user_id = users.user_id()
         question = queries.get_question(id)
         choices = queries.get_choices(id)
         answers = queries.get_answers(id)
-        return render_template("question.html", id=id, question = question, choices = choices, answers = answers)
+        return render_template("question.html", id=id, question = question, choices = choices, answers = answers, user_id = user_id)
     
     if request.method == "POST":
         choice = request.form["choice"]
         queries.answer(choice)
         return redirect("/questions")
+
+@app.route("/delete/<int:id>")
+def delete(id):
+    messages.delete(id)
+    return redirect("/topics")
+
+@app.route("/delete_question/<int:id>")
+def delete_question(id):
+    queries.delete(id)
+    return redirect("/questions")

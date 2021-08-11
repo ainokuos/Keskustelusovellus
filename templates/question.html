@@ -11,3 +11,9 @@
 <br>
 <a href="/questions">Takaisin</a>
 </form>
+<br>
+{% if question[1] == user_id %}
+<form action="/delete_question/{{ id }}" method="GET">
+<input type="submit" value="Poista">
+</form>
+{% endif %}
