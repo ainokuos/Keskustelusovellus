@@ -1,11 +1,11 @@
 {% if error %}
-Virhe
+Virhe: tunnus on jo olemassa tai salasana puuttuu
 {% endif %}
 <form action="/signin" method="POST">
 Luo uusi käyttäjä<br>
 Tunnus:<br>
 <input type="text" name="username">
 Salasana:<br>
-<input type="password" name="password">
+<input type="password" name="password" minlength="1">
 <input type="submit" value="Luo tunnus">
 </form>
