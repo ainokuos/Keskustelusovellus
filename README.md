@@ -9,5 +9,10 @@ Toimintoja ovat:
 - Käyttäjä voi hakea viestejä sanalla
 - Käyttäjä voi vastata viesteihin kuvilla
 
-Nyt sovelluksessa voi kirjautua sekä aloittaa uuden keskustelun tai kyselyn. Kyselyiden vastaukset eivät toimi vielä eikä poisto mahdollisuutta ole vielä lisätty.
+Nyt sovelluksessa voi:
+- Kirjautua tai luoda uuden tunnuksen
+- Aloittaa ja poistaa keskustelun
+- Luoda ja poistaa kyselyn
+- Vastata keskusteluun tai kyselyyn
+
 Sovellus on testattavissa [Herokussa](https://keskustelu-app.herokuapp.com/).
