@@ -1,6 +1,8 @@
-Kyselyt
+{% extends "layout.html" %} 
+{% block title %}Kyselyt{% endblock %}
+{% block content %}
+<h2> Kyselyt </h2>
 <br>
-<a href="/">Takaisin</a>
 <a href="/ask">Luo uusi kysely</a>
 <br>
 <hr>
@@ -9,3 +11,4 @@ Kyselyt
 <br>
 <hr>
 {% endfor %}
+{% endblock %}

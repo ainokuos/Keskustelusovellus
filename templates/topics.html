@@ -1,11 +1,13 @@
-<h1> Keskustelut </h1>
+{% extends "layout.html" %}
+{% block title %} Keskustelut{% endblock %}
+{% block content %}
+<h2>Keskustelut</h2>
 <br>
-<a href="/">Takaisin</a>
-<p>
 <a href="/new">Aloita uusi</a>
 <hr>
 {% for topic in topics %}
-{{ topic[1] }} {{ topic[2] }} <a href="/message/{{ topic[0] }}">Vastaa</a>
+{{ topic[1] }} {{ topic[2] }} <a href="/message/{{ topic[0] }}">Vastaa</a> Vastauksia: {{ replies[(topic[0])-1][0] }}
 <br>
 <hr>
 {% endfor %}
+{% endblock %}

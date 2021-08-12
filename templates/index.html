@@ -1,9 +1,3 @@
-<h1>Tervetuloa!</h1>
-<p>
-{% if not  session.username %}
-<a href="/login">Kirjaudu</a>
-<a href="/signin">Luo tunnus</a>
-{% else %}
-<a href="/logout">Kirjaudu ulos</a>
-<a href="/topics">Keskustelut</a> <a href="/questions">Kyselyt</a>
-{% endif %}
+{% extends "layout.html" %}{% block title %}Etusivu{% endblock %}
+{% block content %}
+{% endblock %}
