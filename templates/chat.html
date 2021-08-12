@@ -1,0 +1,12 @@
+Chatti
+<br>
+{% for message in chats %}
+{{ message[0] }}
+<br>
+{% endfor %}
+<form action="/chat/{{ id }}" method="POST">
+<textarea name="content"rows="3" cols="40" minlenght="1" required></textarea>
+<input type="submit" value="Lähetä">
+<a href="/contacts">Takaisin</a>
+</form>
+

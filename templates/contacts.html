@@ -1,0 +1,10 @@
+{% extends "layout.html" %}
+{% block title %}Viestit{% endblock %}
+{% block content %}
+<h2> Viestit </h2>
+{% for user in contacts %}
+<hr>
+<a href="/chat/{{ user[1] }}">{{ user[0] }}</a>
+<br>
+{% endfor %}
+{% endblock %}

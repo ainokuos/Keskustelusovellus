@@ -46,3 +46,22 @@ def delete(id):
     db.session.execute(sql, {"id":id})
     db.session.commit()
 
+def private_message(user2_id, content):
+    user1_id = users.user_id()
+    sql = "INSERT INTO chats (user1_id, user2_id, content) VALUES (:user1_id, :user2_id, :content)"
+    db.session.execute(sql, {"user1_id":user1_id, "user2_id":user2_id, "content":content})
+    db.session.commit()
+
+def get_private_chat(user2_id):
+    user1_id = users.user_id()
+    sql = "SELECT content FROM chats WHERE user1_id =:user1_id AND user2_id=:user2_id OR user1_id=:user2_id AND user2_id =:user1_id"
+    result = db.session.execute(sql, {"user1_id":user1_id, "user2_id":user2_id}).fetchall()
+    return result
+
+def get_contacts():
+    user_id = users.user_id()
+    sql = "SELECT DISTINCT U.username, U.id FROM users U, chats C WHERE U.id = C.user1_id AND C.user2_id =:user_id OR U.id=C.user2_id AND C.user1_id=:user_id"
+    result = db.session.execute(sql, {"user_id":user_id}).fetchall()
+    return result
+
+

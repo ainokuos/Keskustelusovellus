@@ -19,7 +19,7 @@ def login(username, password):
 
 
 def signin(username, password):
-    if len(password) == 0:
+    if len(password) == 0 or len(username) == 0:
         return False
     sql = "SELECT username FROM users WHERE username=:username"
     result = db.session.execute(sql, {"username":username})
@@ -39,4 +39,10 @@ def logout():
 
 def user_id():
     return session["user_id"]
+
+def get_username(id):
+    sql = "SELECT username FROM users WHERE id =:id"
+    result = db.session.execute(sql, {"id":id}).fetchone()
+    return result
+
 
