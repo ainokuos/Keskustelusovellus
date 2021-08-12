@@ -8,19 +8,22 @@ CREATE TABLE messages (
     id SERIAL PRIMARY KEY,
     topic TEXT,
     content TEXT,
-    user_id INTEGER REFERENCES users
+    user_id INTEGER REFERENCES users,
+    visible BOOLEAN
 );
 
 CREATE TABLE replies (
     id SERIAL PRIMARY KEY,
-    contet TEXT,
+    content TEXT,
     message_id INTEGER REFERENCES messages,
-    usre_id INTEGER REFERENCES users
+    user_id INTEGER REFERENCES users
 );
 
-CREATE TABLE qustions (
+CREATE TABLE questions (
     id SERIAL PRIMARY KEY,
     topic TEXT
+    user_id INTEGER REFERENCES users,
+    visible BOOLEAN
 );
 
 CREATE TABLE choices (
@@ -33,4 +36,11 @@ CREATE TABLE answers (
     id SERIAL PRIMARY KEY,
     choice_id INTEGER REFERENCES choices,
     user_id INTEGER REFERENCES users
+);
+
+CREATE TABLE chats (
+    id SERIAL PRIMARY KEY,
+    user1_id INTEGER REFERENCES users,
+    user2_id INTEGER REFERENCES users,
+    content TEXT
 );
