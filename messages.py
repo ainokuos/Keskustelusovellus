@@ -9,18 +9,22 @@ def new(topic, content):
     else:
         user_id = users.user_id()
         visible = "TRUE"
-        sql = "INSERT INTO messages (topic, content, user_id, visible) VALUES (:topic, :content, :user_id, :visible)"
-        db.session.execute(sql, {"topic":topic, "content":content, "user_id":user_id, "visible":visible})
+        sql = "INSERT INTO messages (topic, user_id, visible) VALUES (:topic, :user_id, :visible)"
+        db.session.execute(sql, {"topic":topic, "user_id":user_id, "visible":visible})
         db.session.commit()
+        sql = "SELECT id FROM messages ORDER BY id DESC LIMIT 1"
+        result = db.session.execute(sql)
+        message_id = result.fetchone()[0]
+        reply(content, message_id)
         return True
 
 def get_all():
-    sql = "SELECT id, topic, content FROM messages WHERE visible = TRUE ORDER BY id"
+    sql = "SELECT DISTINCT ON (M.id)M.id, M.topic, R.content, M.user_id FROM messages M, replies R WHERE visible = TRUE AND M.id = R.message_id ORDER BY M.id DESC, R.id"
     messages = db.session.execute(sql)
     return messages
 
 def get_message(message_id):
-    sql = "SELECT id, topic, content, user_id FROM messages WHERE id = :message_id AND visible = TRUE"
+    sql = "SELECT id, topic, user_id FROM messages WHERE id = :message_id AND visible = TRUE"
     result = db.session.execute(sql, {"message_id":message_id}).fetchone()
     return result
 
@@ -62,6 +66,11 @@ def get_contacts():
     user_id = users.user_id()
     sql = "SELECT DISTINCT U.username, U.id FROM users U, chats C WHERE U.id = C.user1_id AND C.user2_id =:user_id OR U.id=C.user2_id AND C.user1_id=:user_id"
     result = db.session.execute(sql, {"user_id":user_id}).fetchall()
+    return result
+
+def get_search(word):
+    sql = "SELECT M.id, M.topic, R.content M.user_id FROM messages M, replies R WHERE R.content LIKE :word AND M.visible=TRUE GROUP BY R.content, M.id"
+    result = db.session.execute(sql, {"word":"%"+word+"%"})
     return result
 
 

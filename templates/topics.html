@@ -3,10 +3,19 @@
 {% block content %}
 <h2>Keskustelut</h2>
 <br>
+<form action="/topics" method="POST">
+<input type="text" name="search">
+<input type="submit" value="Hae">
+</form>
+<br>
 <a href="/new">Aloita uusi</a>
 <hr>
 {% for topic in topics %}
-{{ topic[1] }} {{ topic[2] }} <a href="/message/{{ topic[0] }}">Vastaa</a> Vastauksia: {{ replies[(topic[0])-1][0] }}
+{% if topic[3] == session.user_id %}
+Sinä: {{ topic[1] }}    {{ topic[2] }} <a href="/message/{{ topic[0] }}">Vastaa/Poista</a>    Vastauksia:{{ replies[(topic[0])-1][0] }}
+{% else %}
+{{ topic[1] }}    {{ topic[2] }} <a href="/message/{{ topic[0] }}">Vastaa</a>    Vastauksia:{{ replies[(topic[0])-1][0] }}
+{% endif %}
 <br>
 <hr>
 {% endfor %}
