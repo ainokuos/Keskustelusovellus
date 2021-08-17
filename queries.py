@@ -1,4 +1,3 @@
-from flask import session, request
 from db import db
 import os
 import users
@@ -19,7 +18,7 @@ def new_question(topic, choices):
             db.session.commit()
 
 def get_queries():
-    sql = "SELECT id, topic FROM questions WHERE visible=TRUE ORDER BY id"
+    sql = "SELECT id, topic FROM questions WHERE visible=TRUE ORDER BY id DESC"
     result = db.session.execute(sql)
     return result
 
@@ -49,3 +48,10 @@ def delete(id):
     db.session.execute(sql, {"id":id})
     db.session.commit()
         
+def answered(question_id):
+    sql ="SELECT A.user_id FROM answers A, questions Q, choices C  WHERE Q.id = C.question_id AND C.id = A.choice_id AND Q.id =:question_id"
+    results = db.session.execute(sql, {"question_id":question_id}).fetchall()
+    for result in results:
+        if result[0] == users.user_id():
+            return True
+    return False

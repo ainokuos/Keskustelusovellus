@@ -1,18 +1,23 @@
 <form action="/question/{{ id }}" method="POST">
 {{ question[0] }}
 <br>
+{% if not answered %}
 {% for choice in choices %}
-<input type="radio" name="choice" value="{{ choice[0] }}">{{ choice[1] }}
+<input type="radio" name="choice" value="{{ choice[0] }}">  {{ choice[1] }}
+<br>
 {% endfor %}
 <input type="submit" value="Vastaa">
-{% for answer in answers %}
-{{ answer[0] }} {{ answer[1] }}
-{% endfor %}
 <br>
+{% else %}
+{% for answer in answers %}
+{{ answer[0] }}  {{ answer[1] }}
+<br>
+{% endfor %}
+{% endif %}
 <a href="/questions">Takaisin</a>
+{% if question[1] == session.user_id %}
 </form>
 <br>
-{% if question[1] == user_id %}
 <form action="/delete_question/{{ id }}" method="GET">
 <input type="submit" value="Poista">
 </form>
