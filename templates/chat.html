@@ -1,12 +1,25 @@
-Chatti
-<br>
-{% for message in chats %}
-{{ message[0] }}
-<br>
-{% endfor %}
-<form action="/chat/{{ id }}" method="POST">
-<textarea name="content"rows="3" cols="40" minlenght="1" required></textarea>
-<input type="submit" value="Lähetä">
-<a href="/contacts">Takaisin</a>
-</form>
-
+{% extends "layout.html" %}
+{% block title %}Chatti{% endblock %}
+{% block content %}
+<div class="content">
+ <h2>Chatti</h2>
+  <br>
+  {% for message in chats %}
+  {% if message[1] == session.user_id %}
+  <div class="chat2"> 
+   {{ message[0] }}
+  </div>
+  {% else %}
+  <div class="chat">
+   {{ message[0] }}
+  </div>
+  {% endif %}
+  <br>
+ {% endfor %}
+ <form action="/chat/{{ id }}" method="POST">
+ <textarea class="textarea" name="content"rows="3" cols="40" minlenght="1" required></textarea>
+ <input type="submit" value="Lähetä">
+ <a href="/contacts">Takaisin</a><br>
+ </form>
+ {% endblock %}
+</div>

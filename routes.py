@@ -2,6 +2,7 @@ from app import app
 from flask import render_template, request, redirect
 import users, messages, queries
 
+
 @app.route("/")
 def index():
     return render_template("index.html")
@@ -43,12 +44,18 @@ def logout():
     return redirect("/")
 
 
-@app.route("/topics")
+@app.route("/topics", methods=["GET", "POST"])
 def topics():
-    topics = messages.get_all()
-    replies = messages.get_sum()
-    return render_template("topics.html", topics=topics, replies=replies)
-
+    if request.method == "GET":
+        topics = messages.get_all()
+        replies = messages.get_sum()
+        return render_template("topics.html", topics=topics, replies=replies)
+    if request.method == "POST":
+        search = request.form["search"]
+        topics = messages.get_search(search)
+        replies = messages.get_sum()
+        return render_template("topics.html", topics=topics, replies=replies)
+        
 
 @app.route("/new", methods=["GET", "POST"])
 def new():
@@ -69,7 +76,7 @@ def new():
 @app.route("/message/<int:id>", methods=["GET", "POST"])
 def message(id):
     content = messages.get_message(id)
-    username = users.get_username((content[3]))
+    username = users.get_username(content[2])
     if request.method == "GET":
         replies = messages.get_replies(id)
         return render_template("message.html", id=id, content=content, replies=replies, username=username)
@@ -99,16 +106,17 @@ def ask():
 @app.route("/question/<int:id>", methods=["GET", "POST"])
 def question(id):
     if request.method == "GET":
-        user_id = users.user_id()
+        answered = queries.answered(id)
         question = queries.get_question(id)
         choices = queries.get_choices(id)
         answers = queries.get_answers(id)
-        return render_template("question.html", id=id, question=question, choices=choices, answers=answers, user_id=user_id)
+        sum = queries.get_sum(id)
+        return render_template("question.html", id=id, question=question, choices=choices, answers=answers, answered=answered, sum=sum)
     
     if request.method == "POST":
         choice = request.form["choice"]
         queries.answer(choice)
-        return redirect("/questions")
+        return redirect("/question/"+ str(id))
 
 
 @app.route("/delete/<int:id>")
@@ -122,10 +130,15 @@ def delete_question(id):
     queries.delete(id)
     return redirect("/questions")
 
-@app.route("/contacts")
+@app.route("/contacts", methods=["GET", "POST"])
 def contacts():
-    contacts = messages.get_contacts()
-    return render_template("contacts.html", contacts=contacts)
+    if request.method =="GET":
+        contacts = messages.get_contacts()
+        return render_template("contacts.html", contacts=contacts)
+    if request.method == "POST":
+        search = request.form["search"]
+        contacts = users.get_search(search)
+        return render_template("contacts.html", contacts=contacts)
 
 @app.route("/chat/<int:id>", methods=["GET", "POST"])
 def chat(id):
@@ -137,3 +150,4 @@ def chat(id):
         content = request.form["content"]
         messages.private_message(id, content)
         return redirect("/chat/" + str(id))
+

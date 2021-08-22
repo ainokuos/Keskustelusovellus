@@ -1,22 +1,27 @@
-<form action="/new" method="POST">
-Lisää uusi keskustelu
-<br>
-Aihe:
-<select name="topic">
-<option value="Ruoka">Ruoka
-<option value="Opiskelu">Opiskelu
-<option value="Sarjat">Sarjat
-<option value="Pelit">Pelit
-<option value="Uutiset">Uutiset
-<option value="Vapaa">Vapaa
-</select>
-<br>
-Aloitus:<br>
-<textarea name="content" rows="5" cols="40"></textarea>
-<br>
-<input type="submit" value="Lähetä">
-<a href="/topics" >Takaisin</a>
-{% if error %}
-Virhe: tyhjä viesti
-{% endif %}
-</form>
+{% extends "layout.html" %}
+{% block title %}Uusi keskustelu{% endblock %}
+{% block content %}
+ <div class="form">
+ <form action="/new" method="POST">
+ <h2>Lisää uusi keskustelu</h2>
+  <h3>Aloitus:</h3>
+  <textarea class="textarea" name="content" rows="5" cols="40"></textarea><p>
+  <select class="select" name="topic">
+   <option value="" disabled selected>Valitse aihe</option>
+   <option value="Ruoka">Ruoka
+   <option value="Opiskelu">Opiskelu
+   <option value="Sarjat">Sarjat
+   <option value="Pelit">Pelit
+   <option value="Uutiset">Uutiset
+   <option value="Vapaa">Vapaa
+  </select><p>
+  <br>
+  <input type="submit" value="Lähetä">
+  <a href="/topics" >Takaisin</a>
+  {% if error %}
+  Virhe: tyhjä viesti
+  {% endif %}
+  </form><br>
+  {% endblock %}
+ </div>
+

@@ -1,14 +1,25 @@
 {% extends "layout.html" %} 
 {% block title %}Kyselyt{% endblock %}
 {% block content %}
-<h2> Kyselyt </h2>
-<br>
-<a href="/ask">Luo uusi kysely</a>
-<br>
-<hr>
-{% for poll in polls %}
-{{ poll[1] }}  <a href="/question/{{ poll[0] }}">Mene kyselyyn</a> 
-<br>
-<hr>
-{% endfor %}
-{% endblock %}
+<div class="content">
+ <h2> Kyselyt </h2>
+  <br>
+  <div class="button">
+   <a href="/ask">Luo uusi kysely</a><br>
+  </div>
+ <br>
+ <br>
+ {% for poll in polls %}
+ {% if poll[2] != session.user_id %}
+ <div class="list">
+  {{ poll[1] }}  <a href="/question/{{ poll[0] }}">Näytä kysely</a> 
+ </div>  
+ {% else %}
+ <div class="list">
+  Sinä: {{ poll[1] }}  <a href="/question/{{ poll[0] }}">Näytä kysely/Poista</a>
+ </div> 
+ {% endif %}
+ {% endfor %}
+ <br>
+ {% endblock %}
+</div>

@@ -1,12 +1,16 @@
-{% if error %}
-Virhe: tunnus on jo olemassa tai salasana puuttuu
-{% endif %}
-<form action="/signin" method="POST">
-Luo uusi käyttäjä<br>
-Tunnus:<br>
-<input type="text" name="username" minlenghts="1" required>
-<br>
-Salasana:<br>
-<input type="password" name="password" minlength="1" required>
-<input type="submit" value="Luo tunnus">
-</form>
+{% extends "layout.html" %}
+{% block title %}Rekisteröidy{% endblock %}
+{% block content %}
+<div class="form">
+ <h2>Rekisteröidy</h2>
+ {% if error %}
+ Virhe: tunnus on jo olemassa tai salasana puuttuu
+ {% endif %}
+ <form action="/signin" method="POST">
+ <input class="text" type="text" name="username" minlenghts="1" required placeholder="Tunnus"><p>
+ <input class="text" type="password" name="password" minlength="1" required placeholder="Salasana"><p>
+ <br>
+ <input type="submit" value="Luo tunnus">
+ </form>
+ {% endblock %}
+</div>

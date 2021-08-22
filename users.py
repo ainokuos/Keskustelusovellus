@@ -45,4 +45,7 @@ def get_username(id):
     result = db.session.execute(sql, {"id":id}).fetchone()
     return result
 
-
+def get_search(word):
+    sql = "SELECT username, id FROM users WHERE username LIKE :word"
+    result = db.session.execute(sql, {"word":"%"+word+"%"}).fetchall()
+    return result

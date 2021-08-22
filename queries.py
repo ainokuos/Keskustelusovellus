@@ -18,7 +18,7 @@ def new_question(topic, choices):
             db.session.commit()
 
 def get_queries():
-    sql = "SELECT id, topic FROM questions WHERE visible=TRUE ORDER BY id DESC"
+    sql = "SELECT id, topic, user_id FROM questions WHERE visible=TRUE ORDER BY id DESC"
     result = db.session.execute(sql)
     return result
 
@@ -39,7 +39,7 @@ def answer(choice_id):
     db.session.commit()
 
 def get_answers(question_id):
-    sql = "SELECT C.choice, count(A.choice_id) FROM answers A, choices C WHERE A.choice_id = C.id AND C.question_id =:question_id GROUP BY C.id, C.choice"
+    sql = "SELECT C.choice, count(A.choice_id) FROM choices C, answers A WHERE A.choice_id = C.id AND C.question_id =:question_id GROUP BY C.id, C.choice, C.question_id"
     result = db.session.execute(sql, {"question_id":question_id}).fetchall()
     return result
 
@@ -55,3 +55,8 @@ def answered(question_id):
         if result[0] == users.user_id():
             return True
     return False
+
+def get_sum(question_id):
+    sql ="SELECT COUNT(A.id) FROM answers A, choices C WHERE A.choice_id=C.id AND C.question_id=:question_id;"
+    result = db.session.execute(sql, {"question_id":question_id}).fetchone()
+    return result[0]

@@ -1,0 +1,142 @@
+body#firstPage {
+    margin: auto;
+    max-width: 45em;
+    background-color: #353b45;
+}
+
+.header {
+    text-align: center;
+    background: #6b88d1;
+    font-weight: bold;
+    padding: 1em 1em;
+    font-size: 2em;
+    border-radius: 10px;
+    margin-top: 1em;
+}
+
+.container {
+    overflow-wrap: break-word;
+    background-color: silver;
+    padding: 20px;
+    margin-right: 10em;
+    border-radius: 5px;
+}
+
+.container2 {
+    overflow-wrap: break-word;
+    background-color: #8495bf;;
+    padding: 20px;
+    margin-left: 10em;
+    border-radius: 5px;
+}
+
+.chat {
+    text-align: left;
+    background-color: silver;
+    padding: 10px;
+    width: max-content;
+    max-width: 20em;
+    overflow-wrap: break-word;
+    border-radius: 5px;
+}
+
+.chat2 {
+    text-align: left;
+    width: max-content;
+    max-width: 20em;
+    overflow-wrap: break-word;
+    background-color: #8495bf;;
+    padding: 10px;
+    margin-left: auto;
+    border-radius: 5px;
+}
+
+.content {
+    background-color: #757b8a;
+    max-width: 45 em;
+    border-radius: 10px;
+    padding: 5px;
+}
+
+
+.bar {
+    background-color: white;
+    padding: 10px;
+    height: 10px;
+    margin: 5px;
+    max-width: 40em;
+    border-radius: 5px;
+}
+
+nav li {
+    display: inline-block;
+    padding: 10px;
+    background: grey;
+    border-radius: 10px;
+    margin: 10px;
+}
+
+ nav li a {
+    text-decoration: none;
+    color: #fff;
+    font-size: larger;
+}
+
+nav ul {
+    text-align: center;
+}
+
+.button a {
+    text-decoration: none;
+    background: #353b45;
+    color: white;
+    padding: 10px;
+    border-radius: 10px;
+    margin: 10px;
+}
+
+.list {
+    background: #8495bf;
+    padding: 20px;
+    border-radius: 10px;
+    margin: 10px;
+    overflow-wrap: break-word;
+}
+
+.topic {
+    background: #353b45;
+    color:white;
+    float: left;
+    margin: 5px;
+    padding: 2px;
+    border-radius: 5px;
+}
+
+.form {
+    background: #6b88d1;
+    padding: 10px;
+    margin: auto;
+    width: min-content;
+    border-radius: 5px;
+}
+
+.text {
+    border: #000 1px solid;
+    height: 2em;
+    font-size: normal;
+    border-radius: 5px;
+}
+
+.textarea {
+    resize: none;
+    outline: none;
+
+}
+
+.select {
+    backgroung: silver;
+    padding: 5px;
+    width: 10em;
+    border: grey 2px solid;
+    border-radius: 10px
+}

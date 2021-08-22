@@ -1,10 +1,18 @@
 {% extends "layout.html" %}
 {% block title %}Viestit{% endblock %}
 {% block content %}
-<h2> Viestit </h2>
-{% for user in contacts %}
-<hr>
-<a href="/chat/{{ user[1] }}">{{ user[0] }}</a>
-<br>
-{% endfor %}
-{% endblock %}
+<div class="content">
+ <h2> Viestit </h2>
+ <br>
+ <form action="/contacts" method="POST">
+ <input class="text" type="text" name="search" placeholder="Hae käyttäjiä">
+ <input type="submit" value="Hae"> <a href="/contacts">Palaa</a>
+ </form>
+ {% for user in contacts %}
+ <div class="list">
+  <a href="/chat/{{ user[1] }}">{{ user[0] }}</a>
+ </div>
+ {% endfor %}
+ <br>
+ {% endblock %}
+</div>

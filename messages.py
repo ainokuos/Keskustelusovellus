@@ -36,7 +36,7 @@ def reply(content, message_id):
         db.session.commit()
 
 def get_replies(message_id):
-    sql = "SELECT content FROM replies WHERE message_id =:message_id"
+    sql = "SELECT content, user_id FROM replies WHERE message_id =:message_id"
     result = db.session.execute(sql, {"message_id":message_id}).fetchall()
     return result
 
@@ -58,7 +58,7 @@ def private_message(user2_id, content):
 
 def get_private_chat(user2_id):
     user1_id = users.user_id()
-    sql = "SELECT content FROM chats WHERE user1_id =:user1_id AND user2_id=:user2_id OR user1_id=:user2_id AND user2_id =:user1_id"
+    sql = "SELECT content, user1_id FROM chats WHERE user1_id =:user1_id AND user2_id=:user2_id OR user1_id=:user2_id AND user2_id =:user1_id"
     result = db.session.execute(sql, {"user1_id":user1_id, "user2_id":user2_id}).fetchall()
     return result
 
@@ -69,7 +69,7 @@ def get_contacts():
     return result
 
 def get_search(word):
-    sql = "SELECT M.id, M.topic, R.content M.user_id FROM messages M, replies R WHERE R.content LIKE :word AND M.visible=TRUE GROUP BY R.content, M.id"
+    sql = "SELECT M.id, M.topic, R.content, M.user_id FROM messages M, replies R WHERE M.id = R.message_id AND R.content LIKE :word AND M.visible=TRUE GROUP BY R.content, M.id, M.topic"
     result = db.session.execute(sql, {"word":"%"+word+"%"})
     return result
 
