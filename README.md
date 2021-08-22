@@ -7,12 +7,17 @@ Toimintoja ovat:
 - Käyttäjä voi luoda kyselyn
 - Käyttäjä voi lähettää yksityisviestejä
 - Käyttäjä voi hakea viestejä sanalla
-- Käyttäjä voi vastata viesteihin kuvilla
 
 Nyt sovelluksessa voi:
 - Kirjautua tai luoda uuden tunnuksen
 - Aloittaa ja poistaa keskustelun
 - Luoda ja poistaa kyselyn
 - Vastata keskusteluun tai kyselyyn
+- Hakea käyttäjiä ja vastauksia sanalla
+- lähettää yksityisviestejä
+
+Vielä kesken:
+- Ulkonäön viimeistely
+- Kyselyiden vastaukset
 
 Sovellus on testattavissa [Herokussa](https://keskustelu-app.herokuapp.com/).
