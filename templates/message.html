@@ -21,7 +21,7 @@
  {% endfor %}
  Vastaa:<br>
  <form action="/message/{{ id }}" method="POST">
- <textarea name="reply" rows="3" cols="40" minlength="1" required ></textarea><br>
+ <textarea class="textarea" name="reply" rows="3" cols="40" minlength="1" required ></textarea><br>
  <input type="submit" value="Lähetä">
  <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
  </form>

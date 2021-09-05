@@ -82,6 +82,10 @@ nav li {
     font-size: larger;
 }
 
+nav li:hover {
+    background-color: black;
+}
+
 nav ul {
     text-align: center;
 }
@@ -93,6 +97,10 @@ nav ul {
     padding: 10px;
     border-radius: 10px;
     margin: 10px;
+}
+
+.button a:hover {
+    background-color: black;
 }
 
 .list {
