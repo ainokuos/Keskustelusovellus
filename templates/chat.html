@@ -16,11 +16,12 @@
   {% endif %}
   <br>
  {% endfor %}
+ Vastaa:
  <form action="/chat/{{ id }}" method="POST">
- <textarea class="textarea" name="content"rows="3" cols="40" minlenght="1" required></textarea>
+ <textarea class="textarea" name="content"rows="3" cols="40" minlenght="1" required></textarea><br>
  <input type="submit" value="Lähetä">
  <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
- </form>
+ </form><br>
  <a href="/contacts" style="color: white;">Takaisin</a><br>
  {% endblock %}
 </div>

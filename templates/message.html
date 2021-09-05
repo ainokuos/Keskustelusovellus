@@ -2,10 +2,10 @@
 {% block title %}{{ content[1] }}{% endblock %}
 {% block content %}
 <div class="content">
- {{ content[1] }}
+ <h3>{{ content[1] }}
  |{% if content[2] != session.user_id %} 
  <a href="/chat/{{ content[2] }}">{{ username[0] }}<a/>
- {% endif %}
+ {% endif %}</h3>
  <br>
  {% for reply in replies %}
  {% if reply[1] == session.user_id %}
@@ -24,11 +24,11 @@
  <textarea class="textarea" name="reply" rows="3" cols="40" minlength="1" required ></textarea><br>
  <input type="submit" value="Lähetä">
  <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
- </form>
- <a href="/topics">Takaisin</a> <br>
+ </form><br>
+ <a href="/topics" style="color: white;">Takaisin</a>
  {% if content[2] == session.user_id %}
  <form action="/delete/{{ content[0] }}" method="POST">
- <input type="submit" value="Poista">
+ <input type="submit" value="Poista" style="float: right;">
  <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
  </form>
  <br>
