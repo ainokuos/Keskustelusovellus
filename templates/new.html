@@ -6,7 +6,7 @@
  <h2>Lisää uusi keskustelu</h2>
   <h3>Aloitus:</h3>
   <textarea class="textarea" name="content" rows="5" cols="40"></textarea><p>
-  <select class="select" name="topic">
+  <select class="select" name="topic" required>
    <option value="" disabled selected>Valitse aihe</option>
    <option value="Ruoka">Ruoka
    <option value="Opiskelu">Opiskelu
@@ -14,14 +14,14 @@
    <option value="Pelit">Pelit
    <option value="Uutiset">Uutiset
    <option value="Vapaa">Vapaa
-  </select><p>
-  <br>
+  </select><p><br>
   <input type="submit" value="Lähetä">
+  <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+  </form><br>
   <a href="/topics" >Takaisin</a>
   {% if error %}
   Virhe: tyhjä viesti
   {% endif %}
-  </form><br>
   {% endblock %}
  </div>
 

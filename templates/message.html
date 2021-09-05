@@ -2,7 +2,6 @@
 {% block title %}{{ content[1] }}{% endblock %}
 {% block content %}
 <div class="content">
- <form action="/message/{{ id }}" method="POST">
  {{ content[1] }}
  |{% if content[2] != session.user_id %} 
  <a href="/chat/{{ content[2] }}">{{ username[0] }}<a/>
@@ -21,15 +20,16 @@
  <br>
  {% endfor %}
  Vastaa:<br>
- <textarea name="reply" rows="3" cols="40" minlength="1" required ></textarea>
- <br>
+ <form action="/message/{{ id }}" method="POST">
+ <textarea name="reply" rows="3" cols="40" minlength="1" required ></textarea><br>
  <input type="submit" value="Lähetä">
- <a href="/topics">Takaisin</a>
- <br>
+ <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
  </form>
+ <a href="/topics">Takaisin</a> <br>
  {% if content[2] == session.user_id %}
- <form action="/delete/{{ content[0] }}" method="GET">
+ <form action="/delete/{{ content[0] }}" method="POST">
  <input type="submit" value="Poista">
+ <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
  </form>
  <br>
  {% endif %}

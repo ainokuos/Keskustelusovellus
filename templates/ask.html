@@ -6,10 +6,11 @@
   <h3>Otsikko:</h3><input class="text" type="text" name="topic" minlenght="1" required><p>
   <input class="text" type="text" name="choice" minlenght="1" required placeholder="Vaihtoehto 1."><p>
   <input class="text" type="text" name="choice" minlenght="1" required placeholder="Vaihtoehto 2."><p>
-  <input class="text" type="text" name="choice" minlenght="1" required placeholder="(Vaihtoehto 3.)"><p>
-  <input class="text" type="text" name="choice" minlenght="1" required placeholder="(Vaihtoehto 4.)"><p>
+  <input class="text" type="text" name="choice" minlenght="1" placeholder="(Vaihtoehto 3.)"><p>
+  <input class="text" type="text" name="choice" minlenght="1" placeholder="(Vaihtoehto 4.)"><p>
   <br>
   <input type="submit" value="Lähetä">
+  <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
   </form>
   {% endblock %}
  </div>

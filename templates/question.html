@@ -2,30 +2,34 @@
 {% block title %}Kyselyt{% endblock %}
 {% block content %}
 <div class="content">
- <form action="/question/{{ id }}" method="POST">
- <h3>{{ question[0] }}</h3>
- <br>
- {% if not answered %}
- {% for choice in choices %}
- <input type="radio" name="choice" value="{{ choice[0] }}">  {{ choice[1] }}
- <br>
- {% endfor %}
- <input type="submit" value="Vastaa">
- <br>
- {% else %}
- {% for answer in answers %}
- <div class="bar" style="width:{{ answer[1]/sum*100 }}%;">
- {{ answer[0] }}  {{ answer[1] }}
- </div>
- {% endfor %}
- {% endif %}
- <a href="/questions" style="color: white;">Takaisin</a>
+  <form action="/question/{{ id }}" method="POST">
+  <h3>{{ question[0] }}</h3>
+  <br>
+  {% if not answered %}
+  {% for choice in choices %}
+  <input type="radio" name="choice" value="{{ choice[0] }}">  {{ choice[1] }}
+  <br>
+  {% endfor %}
+  <input type="submit" value="Vastaa"><br>
+  <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}"> 
+
+  {% else %}
+
+  {% for answer in answers %}
+  <div class="bar" style="width:{{ answer[1]/sum*100 }}%;">
+  {{ answer[0] }}  {{ answer[1] }}
+  </div>
+  {% endfor %}
+  {% endif %}
+  <a href="/questions" style="color: white;">Takaisin</a><br>
+  </form>
+
  {% if question[1] == session.user_id %}
- </form>
- <br>
- <form action="/delete_question/{{ id }}" method="GET">
- <input type="submit" value="Poista">
- </form>
+ <form action="/delete_question/{{ id }}" method="POST">
+  <input type="submit" value="Poista">
+  <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+ </form> 
+
  {% endif %}
  {% endblock %}
 </div>

@@ -19,7 +19,8 @@
  <form action="/chat/{{ id }}" method="POST">
  <textarea class="textarea" name="content"rows="3" cols="40" minlenght="1" required></textarea>
  <input type="submit" value="Lähetä">
- <a href="/contacts">Takaisin</a><br>
+ <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
  </form>
+ <a href="/contacts">Takaisin</a><br>
  {% endblock %}
 </div>
